@@ -1044,9 +1044,9 @@
   }
   .shingle-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    max-width: 900px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1000px;
     margin: 0 auto;
   }
   .shingle-card {
@@ -1063,8 +1063,9 @@
   }
   .shingle-card img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 240px;
+    object-fit: contain;
+    background: #f0ebe6;
     display: block;
   }
   .shingle-card figcaption {
@@ -1077,7 +1078,7 @@
   }
   @media (max-width: 600px) {
     .shingle-grid { grid-template-columns: 1fr; gap: 20px; }
-    .shingle-card img { height: 160px; }
+    .shingle-card img { height: 200px; }
   }
 
 </style>
