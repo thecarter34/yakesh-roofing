@@ -1693,6 +1693,15 @@
         videoEl.play();
         videoEl.classList.add('playing');
       });
+      videoEl.addEventListener('click', () => {
+        if (videoEl.paused) {
+          videoEl.play();
+          videoEl.classList.add('playing');
+        } else {
+          videoEl.pause();
+          videoEl.classList.remove('playing');
+        }
+      });
       videoEl.addEventListener('ended', () => {
         videoEl.classList.remove('playing');
       });
