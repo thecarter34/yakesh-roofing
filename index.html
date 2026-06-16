@@ -384,15 +384,27 @@
       font-family: var(--font-display);
       font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
-      color: var(--text-primary); line-height: 1;
+      /* === HERO TEXT ON DARK BACKGROUND ===
+         .hero has background: var(--bg-dark) which is the warm dark brown
+         #5C4A4A. The body color scheme (--text-primary = #1A1817) is
+         near-black, which becomes unreadable on that dark brown. Hero
+         must override to white. Keep h1 span (the "Roofing" accent word)
+         in --accent for the red highlight. */
+      color: #ffffff;
+      line-height: 1;
       margin-bottom: 20px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
     }
     .hero h1 span { color: var(--accent); }
 
     .hero-sub {
       font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--text-secondary);
+      /* Was var(--text-secondary) which is #5C4A4A — SAME as the hero
+         background. The subtitle was literally invisible. Override to
+         a high-contrast cream/white. */
+      color: rgba(255, 255, 255, 0.88);
       max-width: 600px; margin: 0 auto 40px; line-height: 1.7;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
     }
 
     /* CTAs */
@@ -423,7 +435,7 @@
       display: flex; align-items: center; justify-content: center; gap: 24px;
       margin-top: 48px; flex-wrap: wrap;
     }
-    .trust-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.875rem; }
+    .trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.85); font-size: 0.875rem; }
     .trust-item svg { color: var(--accent); width: 18px; height: 18px; flex-shrink: 0; }
     .trust-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--border-color); }
 
@@ -431,7 +443,7 @@
     .hero-scroll {
       position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.7); font-size: 0.7rem; letter-spacing: 0.12em;
       text-transform: uppercase; z-index: 4;
     }
     .hero-scroll svg { animation: bounceDown 2s ease infinite; }
