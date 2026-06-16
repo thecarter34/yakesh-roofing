@@ -954,13 +954,14 @@
         grid-template-columns: 1fr;
         gap: 32px;
       }
-      .about-image { order: -1; max-height: none; overflow: visible; }
+      .about-image { order: -1; }
       .about-image img,
       .about-image video {
         border-radius: var(--radius-lg);
-        aspect-ratio: 16/9;
-        object-fit: cover;
+        aspect-ratio: 1/1;
+        object-fit: contain;
       }
+      .about-image img { object-fit: cover; }
       /* Video caption: reduce padding on mobile */
       .about-photo-caption { padding: 24px 16px 16px; }
 
@@ -1320,7 +1321,7 @@
       </div>
       <div class="about-image reveal">
         <figure class="about-graphic">
-          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls width="450" height="450"></video>
+          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls></video>
           <figcaption class="about-photo-caption">
             <span class="about-caption-name">Yakesh Roofing</span>
             <span class="about-caption-title">Eau Claire, WI</span>
