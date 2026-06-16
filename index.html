@@ -157,6 +157,12 @@
       --accent-2-dark:  #78350f;
       --accent-2-glow:  rgba(146, 64, 14, 0.2);
 
+      /* Gold — brand accent from logo */
+      --gold:           #B8860B;
+      --gold-light:     #D4A84B;
+      --gold-dark:      #8B6508;
+      --gold-glow:      rgba(184, 134, 11, 0.3);
+
       /* Background — warm charcoal */
       --bg-primary:     #FAF7F4;
       --bg-secondary:   #F0EBE6;
@@ -202,10 +208,10 @@
     body::before {
       content: "";
       position: fixed; inset: 0;
-      background-image: url("assets/hero.jpg");
       opacity: 0.03;
       mix-blend-mode: overlay;
       pointer-events: none; z-index: 9998;
+      background: var(--bg-dark);
     }
 
     img { max-width: 100%; height: auto; display: block; }
@@ -243,9 +249,6 @@
     }
     .no-js .reveal { opacity: 1; transform: none; }
 
-    /* Navbar scroll effect */
-    .navbar.scrolled { background: rgba(var(--bg-rgb), 0.97); backdrop-filter: blur(20px); }
-
     /* ================================
        NAVBAR
        ================================ */
@@ -253,13 +256,14 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       padding: 14px 24px;
       display: flex; align-items: center; justify-content: space-between;
-      background: rgba(var(--bg-rgb), 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color);
+      background: var(--gold);
+      color: #ffffff;
+      border-bottom: 1px solid rgba(0,0,0,0.15);
       transform: translateY(-100%);
       transition: transform 0.4s ease, background 0.3s ease;
     }
+    .navbar a { color: #ffffff; }
+    .navbar.scrolled { background: var(--gold); }
     .navbar.visible { transform: translateY(0); }
 
     .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; min-width: 0; }
@@ -268,34 +272,33 @@
     @media (max-width: 768px) { .nav-logo-text { display: none; } }
 
     .nav-links { display: flex; gap: clamp(1.5rem, 3vw, 2.5rem); list-style: none; }
-    .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent-light); }
+    .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.9); transition: color 0.2s; }
+    .nav-links a:hover { color: #ffffff; }
 
     .nav-actions { display: flex; align-items: center; gap: 16px; }
     .nav-phone {
       display: flex; align-items: center; gap: 6px;
       font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
-      transition: color 0.2s;
+      color: #ffffff; transition: color 0.2s;
     }
-    .nav-phone svg { color: var(--accent); flex-shrink: 0; }
-    .nav-phone:hover { color: var(--accent-light); }
+    .nav-phone svg { color: rgba(255,255,255,0.9); flex-shrink: 0; }
+    .nav-phone:hover { color: #ffffff; }
 
     .nav-cta {
-      background: var(--accent);
-      color: #ffffff;
+      background: #ffffff; color: var(--gold);
       padding: 10px 22px;
       border-radius: var(--radius-sm);
       font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
       transition: all 0.2s;
     }
-    .nav-cta:hover { background: var(--accent-dark); transform: translateY(-2px); }
+    .nav-cta:hover { background: var(--gold-dark); color: #ffffff; transform: translateY(-2px); }
 
     /* Mobile nav */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-    .hamburger span { width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
+    .hamburger span { width: 24px; height: 2px; background: #ffffff; border-radius: 2px; transition: all 0.3s; }
 
     /* Mobile menu */
-    .mobile-menu { display: none; }
+    .mobile-menu { display: none; background: var(--gold); }
 
     /* ================================
        HERO
@@ -656,11 +659,26 @@
     .about-pillar h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 5px; }
     .about-pillar p { font-size: 0.92rem; color: var(--text-secondary); margin: 0; }
     .about-image { position: relative; }
-    .about-image img {
+    .about-image img, .about-image video {
       border-radius: var(--radius-xl); width: 100%; height: auto;
       aspect-ratio: 1/1; object-fit: cover;
       box-shadow: 0 24px 70px rgba(0,0,0,0.4);
     }
+    .about-video { display: block; }
+    .about-video:not([src]) { display: none; }
+    .video-play-btn {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 2;
+    }
+    .video-play-btn svg { width: 28px; height: 28px; margin-left: 4px; }
+    .video-play-btn:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--accent-dark); }
+    .about-video.playing ~ .video-play-btn { display: none; }
     .about-photo-caption {
       position: absolute; bottom: 0; left: 0; right: 0;
       /* Solid dark background (opaque, not translucent) so the white
@@ -913,13 +931,13 @@
       .hamburger { display: flex; }
       .mobile-menu {
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background: var(--bg-dark); z-index: 999;
+        background: var(--gold); z-index: 999;
         display: none; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
         opacity: 0; transform: translateY(-20px);
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
       .mobile-menu.open { display: flex; opacity: 1; transform: translateY(0); }
-      .mobile-menu a { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; }
+      .mobile-menu a { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; color: #ffffff; }
       .about-container, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .about-image { order: -1; }
@@ -950,7 +968,7 @@
       .section-header { margin-bottom: 36px; }
       .section-title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
       .about-container { gap: 32px; }
-      .about-image img { border-radius: var(--radius-lg); }
+      .about-image img, .about-image video { border-radius: var(--radius-lg); }
       .contact-info { gap: 16px; }
       .contact-item { gap: 10px; }
       .faq-question { padding: 16px 16px; font-size: 0.92rem; }
@@ -963,7 +981,7 @@
     }
     @media (max-width: 768px) {
       .about-image { max-height: 45vh; overflow: hidden; }
-      .about-image img { border-radius: var(--radius-lg); }
+      .about-image img, .about-image video { border-radius: var(--radius-lg); }
     }
   
   /* Shingle Showcase */
@@ -1049,7 +1067,7 @@
     </ul>
     <div class="nav-actions">
       <a href="tel:+17159330145" class="nav-phone">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <i class="ph ph-phone"></i>
       (715) 933-0145
       </a>
       <a href="#contact" class="nav-cta">Get Free Estimate</a>
@@ -1083,7 +1101,7 @@
       </div>
 
       <div class="hero-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <i class="ph ph-star"></i>
         Certified Owens Corning Installers
       </div>
 
@@ -1092,7 +1110,7 @@
 
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          <i class="ph ph-chat-circle"></i>
           Get a Free Estimate
         </a>
         <a href="tel:+17159330145" class="btn-outline">
@@ -1107,22 +1125,22 @@
         </div>
         <div class="trust-sep"></div>
         <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <i class="ph ph-star"></i>
           A+ BBB Rating
         </div>
         <div class="trust-sep"></div>
         <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <i class="ph ph-check"></i>
           Free Estimates
         </div>
         <div class="trust-sep"></div>
         <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <i class="ph ph-shield"></i>
           Workmanship Guarantee
         </div>
         <div class="trust-sep"></div>
         <div class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <i class="ph ph-clock"></i>
           50-Year Warranty Available
         </div>
       </div>
@@ -1143,7 +1161,7 @@
 
     <div class="hero-scroll" aria-hidden="true">
       <span>Scroll Down</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      <i class="ph ph-caret-down"></i>
     </div>
 
     <div class="hero-wave" aria-hidden="true"></div>
@@ -1152,27 +1170,27 @@
   <!-- TRUST BAR -->
   <section class="trustbar" aria-label="Our credentials">
     <div class="trustbar-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <i class="ph ph-star"></i>
       A+ BBB Rating
     </div>
     <div class="trustbar-sep"></div>
     <div class="trustbar-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <i class="ph ph-seal-check"></i>
       Certified Installers
     </div>
     <div class="trustbar-sep"></div>
     <div class="trustbar-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <i class="ph ph-shield"></i>
       Workmanship Guarantee
     </div>
     <div class="trustbar-sep"></div>
     <div class="trustbar-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      <i class="ph ph-briefcase"></i>
       50-Year Warranty
     </div>
     <div class="trustbar-sep"></div>
     <div class="trustbar-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <i class="ph ph-house"></i>
       Free Estimates
     </div>
   </section>
@@ -1204,35 +1222,35 @@
     <div class="services-grid" role="list">
       <div class="svc-card reveal">
         <div class="svc-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <i class="ph ph-house"></i>
         </div>
         <h3>Roof Installation</h3>
         <p>Expert new roof installation using premium asphalt and fiberglass shingles from trusted manufacturers like Owens Corning.</p>
-        <a href="#contact">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <a href="#contact">Learn More <i class="ph ph-arrow-right" style="font-size:14px"></i></a>
       </div>
       <div class="svc-card reveal reveal-delay-1">
         <div class="svc-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          <i class="ph ph-tools"></i>
         </div>
         <h3>Roof Replacement</h3>
         <p>Complete roof replacement services with transparent pricing, expert craftsmanship, and minimal disruption to your home.</p>
-        <a href="#contact">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <a href="#contact">Learn More <i class="ph ph-arrow-right" style="font-size:14px"></i></a>
       </div>
       <div class="svc-card reveal reveal-delay-2">
         <div class="svc-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <i class="ph ph-shield"></i>
         </div>
         <h3>Storm Damage Repair</h3>
         <p>Fast, reliable storm damage repair and restoration. We work directly with your insurance company to streamline the claims process.</p>
-        <a href="#contact">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <a href="#contact">Learn More <i class="ph ph-arrow-right" style="font-size:14px"></i></a>
       </div>
       <div class="svc-card reveal reveal-delay-3">
         <div class="svc-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <i class="ph ph-magnifying-glass"></i>
         </div>
         <h3>Roof Inspection</h3>
         <p>Thorough roof inspections to assess condition, identify issues early, and help you plan for future maintenance or replacement.</p>
-        <a href="#contact">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <a href="#contact">Learn More <i class="ph ph-arrow-right" style="font-size:14px"></i></a>
       </div>
 
     <!-- Owens Corning Shingle Showcase -->
@@ -1260,7 +1278,7 @@
     <div class="about-container">
       <div class="about-content reveal">
         <div class="about-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <i class="ph ph-star"></i>
           Serving Eau Claire Since 2015
         </div>
         <h2 id="about-heading">Built on Trust, Finished with Pride</h2>
@@ -1269,7 +1287,7 @@
         <div class="about-pillars">
           <div class="about-pillar">
             <div class="about-pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <i class="ph ph-seal-check"></i>
             </div>
             <div>
               <h3>Certified Excellence</h3>
@@ -1278,7 +1296,7 @@
           </div>
           <div class="about-pillar">
             <div class="about-pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <i class="ph ph-shield"></i>
             </div>
             <div>
               <h3>Warranty Protected</h3>
@@ -1287,7 +1305,7 @@
           </div>
           <div class="about-pillar">
             <div class="about-pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              <i class="ph ph-users-three"></i>
             </div>
             <div>
               <h3>Local &amp; Family Owned</h3>
@@ -1298,7 +1316,8 @@
       </div>
       <div class="about-image reveal">
         <figure class="about-graphic">
-          <img src="assets/hero.jpg" alt="Professional roofing work in progress" loading="lazy" width="450" height="450" />
+          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline width="450" height="450"></video>
+          <button class="video-play-btn" aria-label="Play commercial"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
           <figcaption class="about-photo-caption">
             <span class="about-caption-name">Yakesh Roofing</span>
             <span class="about-caption-title">Eau Claire, WI</span>
@@ -1436,7 +1455,7 @@
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
           How long does a typical roof replacement take?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <i class="ph ph-caret-down"></i>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">Most residential roof replacements are completed in 1–3 days, depending on the size and complexity of your roof. We work efficiently while maintaining our high quality standards, and we always clean up thoroughly at the end of each day.</div>
@@ -1445,7 +1464,7 @@
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
           What warranties do you offer?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <i class="ph ph-caret-down"></i>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">We offer a 50-year, 100% warranty on materials through our Owens Corning certification. We also back every installation with our own workmanship guarantee. Your warranty is fully transferable to the next homeowner, adding value to your property.</div>
@@ -1454,7 +1473,7 @@
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
           Do you work with insurance companies?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <i class="ph ph-caret-down"></i>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">Yes! We've helped many homeowners navigate the insurance claims process after storm damage. We can meet with your adjuster, provide detailed documentation, and ensure you receive fair compensation for the work needed.</div>
@@ -1463,7 +1482,7 @@
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
           How do I know if I need a full replacement or just repairs?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <i class="ph ph-caret-down"></i>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">We offer free roof inspections to assess your roof's condition. Generally, if your roof is over 20 years old, has widespread damage, or has had multiple repairs, a full replacement is more cost-effective long-term. We'll give you an honest recommendation either way.</div>
@@ -1472,7 +1491,7 @@
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
           What is your referral program?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <i class="ph ph-caret-down"></i>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">Our referral program rewards you for every customer you send our way. You start earning $50 per referral, and as your referral list grows, you can earn up to $200 per referral. Best of all, it's a lifetime program that carries over year after year!</div>
@@ -1507,13 +1526,13 @@
           </div>
         </div>
         <div class="contact-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <i class="ph ph-map-pin"></i>
           <div>
             <p>123 Main Street<br>Eau Claire, WI 54701</p>
           </div>
         </div>
         <div class="contact-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <i class="ph ph-envelope"></i>
           <a href="mailto:info@yakeshrfg.com">info@yakeshrfg.com</a>
         </div>
       </div>
@@ -1583,7 +1602,7 @@
 
   <!-- Sticky mobile call bar (visible only on screens <= 768px) -->
   <a href="tel:+17159330145" class="mobile-callbar" aria-label="Call Yakesh Roofing at (715) 933-0145">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    <i class="ph ph-phone"></i>
     Call (715) 933-0145 — Free Estimates
   </a>
 
@@ -1665,6 +1684,19 @@
       });
     }, { threshold: 0.5 });
     statTexts.forEach(el => counterObserver.observe(el));
+
+    /* Video play button */
+    const playBtn = document.querySelector('.video-play-btn');
+    const videoEl = document.querySelector('.about-video');
+    if (playBtn && videoEl) {
+      playBtn.addEventListener('click', () => {
+        videoEl.play();
+        videoEl.classList.add('playing');
+      });
+      videoEl.addEventListener('ended', () => {
+        videoEl.classList.remove('playing');
+      });
+    }
 
     /* === COUNTER SAFETY NET ===
        If IntersectionObserver never fires (headless screenshot, slow scroll,
