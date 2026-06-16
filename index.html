@@ -689,6 +689,29 @@
     .about-image video { object-fit: contain; background: #000; }
     .about-video { display: block; }
     .about-video:not([src]) { display: none; }
+
+    /* Video play overlay — shown on top of black video area before play */
+    .video-poster-overlay {
+      position: absolute; inset: 0; z-index: 3;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .video-poster-overlay img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .video-play-overlay-btn {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .video-play-overlay-btn:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--accent-dark); }
+    .video-play-overlay-btn svg { width: 28px; height: 28px; margin-left: 4px; }
+    .about-video.playing ~ .video-poster-overlay { display: none; }
+    .about-video.paused ~ .video-poster-overlay { display: flex; align-items: center; justify-content: center; }
     .about-photo-caption {
       position: absolute; bottom: 0; left: 0; right: 0;
       /* Solid dark background (opaque, not translucent) so the white
@@ -1322,6 +1345,10 @@
       <div class="about-image reveal">
         <figure class="about-graphic">
           <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls></video>
+          <div class="video-poster-overlay" aria-label="Play video">
+            <img src="assets/hero.jpg" alt="Yakesh Roofing professional workmanship" loading="lazy" />
+            <button class="video-play-overlay-btn" aria-label="Play commercial"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+          </div>
           <figcaption class="about-photo-caption">
             <span class="about-caption-name">Yakesh Roofing</span>
             <span class="about-caption-title">Eau Claire, WI</span>
@@ -1684,6 +1711,37 @@
     statTexts.forEach(el => counterObserver.observe(el));
     const playBtn = null; // removed — native controls now used
     const videoEl = document.querySelector('.about-video');
+    const posterOverlay = document.querySelector('.video-poster-overlay');
+    const overlayBtn = document.querySelector('.video-play-overlay-btn');
+
+    if (videoEl && posterOverlay) {
+      posterOverlay.addEventListener('click', () => {
+        videoEl.classList.remove('paused');
+        videoEl.classList.add('playing');
+        videoEl.play();
+      });
+      overlayBtn && overlayBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        videoEl.classList.remove('paused');
+        videoEl.classList.add('playing');
+        videoEl.play();
+      });
+      videoEl.addEventListener('click', () => {
+        if (videoEl.paused) {
+          videoEl.classList.remove('paused');
+          videoEl.classList.add('playing');
+        } else {
+          videoEl.classList.remove('playing');
+          videoEl.classList.add('paused');
+        }
+      });
+      videoEl.addEventListener('ended', () => {
+        videoEl.classList.remove('playing');
+        videoEl.classList.add('paused');
+      });
+      // Initial state: show overlay (paused class)
+      videoEl.classList.add('paused');
+    }
 
     /* === COUNTER SAFETY NET ===
        If IntersectionObserver never fires (headless screenshot, slow scroll,
