@@ -680,27 +680,17 @@
     .about-pillar h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 5px; }
     .about-pillar p { font-size: 0.92rem; color: var(--text-secondary); margin: 0; }
     .about-image { position: relative; }
-    .about-image img, .about-image video {
+    
+    .about-image img {
       border-radius: var(--radius-xl); width: 100%; height: auto;
       aspect-ratio: 1/1;
       box-shadow: 0 24px 70px rgba(0,0,0,0.4);
     }
-    .about-image img { object-fit: cover; }
-    .about-image video { object-fit: contain; background: #000; }
-    .about-video { display: block; border-radius: var(--radius-xl); width: 100%; aspect-ratio: 1/1; box-shadow: 0 24px 70px rgba(0,0,0,0.4); background: #000; }
-    .about-photo-caption {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      /* Solid dark background (opaque, not translucent) so the white
-         caption text is reliably readable AND the contrast audit can
-         find an opaque bg to test against. The gradient layer on top
-         adds visual depth. */
-      background-color: #08070a;
-      background-image: linear-gradient(transparent, rgba(8, 7, 6, 0.96));
-      padding: 44px 26px 22px;
-      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    .about-image video {
+      border-radius: var(--radius-xl); width: 100%; height: auto;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.4);
     }
-    .about-caption-name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: #ffffff; }
-    .about-caption-title { font-size: 0.88rem; color: rgba(255, 255, 255, 0.85); }
+    .about-image img { object-fit: cover; }
 
     /* ================================
        STATS
@@ -957,12 +947,9 @@
       .about-image img,
       .about-image video {
         border-radius: var(--radius-lg);
-        aspect-ratio: 1/1;
-        object-fit: contain;
+        object-fit: cover;
       }
-      .about-image img { object-fit: cover; }
       /* Video caption: reduce padding on mobile */
-      .about-photo-caption { padding: 24px 16px 16px; }
 
       /* Contact: single column on mobile so form fills screen width */
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -981,7 +968,8 @@
       .section-header { margin-bottom: 36px; }
       .section-title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
       .about-container { gap: 32px; }
-      .about-image img, .about-image video { border-radius: var(--radius-lg); }
+      .about-image img { border-radius: var(--radius-lg); }
+      .about-image video { border-radius: var(--radius-lg); object-fit: cover; }
       .contact-info { gap: 16px; }
       .contact-item { gap: 10px; }
       .faq-question { padding: 16px 16px; font-size: 0.92rem; }
@@ -1039,7 +1027,7 @@
   }
   .shingle-card img {
     width: 100%;
-    height: 240px;
+    aspect-ratio: 4 / 3;
     object-fit: contain;
     background: #f0ebe6;
     display: block;
@@ -1054,7 +1042,6 @@
   }
   @media (max-width: 600px) {
     .shingle-grid { grid-template-columns: 1fr; gap: 20px; }
-    .shingle-card img { height: 200px; }
   }
 
 </style>
@@ -1064,7 +1051,7 @@
   <!-- NAVBAR -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <a href="#" class="nav-logo">
-      <img src="assets/logo-new.png" alt="Yakesh Roofing" />
+      <img src="assets/logo-new-final.png" alt="Yakesh Roofing" />
       <span class="nav-logo-text">Yakesh Roofing</span>
     </a>
     <ul class="nav-links">
@@ -1106,7 +1093,7 @@
 
     <div class="hero-content">
       <div class="hero-logo">
-        <img src="assets/logo-new.png" alt="Yakesh Roofing" loading="eager" />
+        <img src="assets/logo-new-final.png" alt="Yakesh Roofing" loading="eager" />
       </div>
 
       <div class="hero-badge">
@@ -1321,11 +1308,7 @@
       </div>
       <div class="about-image reveal">
         <figure class="about-graphic">
-          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls poster="assets/hero.jpg"></video>
-          <figcaption class="about-photo-caption">
-            <span class="about-caption-name">Yakesh Roofing</span>
-            <span class="about-caption-title">Eau Claire, WI</span>
-          </figcaption>
+          <video src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls poster="assets/video-poster-5s.jpg"></video>
         </figure>
       </div>
     </div>
@@ -1568,7 +1551,7 @@
   <footer class="site-footer" role="contentinfo">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo-new.png" alt="Yakesh Roofing" />
+        <img src="assets/logo-new-final.png" alt="Yakesh Roofing" />
         <p>Eau Claire's trusted roofing contractor. Certified Owens Corning installers serving residential and commercial properties across the Chippewa Valley.</p>
       </div>
       <div class="footer-links">
@@ -1682,7 +1665,6 @@
       });
     }, { threshold: 0.5 });
     statTexts.forEach(el => counterObserver.observe(el));
-    const playBtn = null; // removed — native controls now used
 
     /* === COUNTER SAFETY NET ===
        If IntersectionObserver never fires (headless screenshot, slow scroll,
