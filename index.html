@@ -687,54 +687,7 @@
     }
     .about-image img { object-fit: cover; }
     .about-image video { object-fit: contain; background: #000; }
-    .about-video { display: block; }
-    .about-video:not([src]) { display: none; }
-
-    /* Video play overlay — shown on top of black video area before play */
-    .video-poster-overlay {
-      position: absolute; inset: 0; z-index: 3;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      cursor: pointer;
-      /* Dark scrim so the play button always pops against any poster image */
-      background: rgba(0, 0, 0, 0.35);
-    }
-    .video-poster-overlay img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover;
-      /* Slight dim so button is always the focal point */
-      filter: brightness(0.75);
-    }
-    .video-play-overlay-btn {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 80px; height: 80px; border-radius: 50%;
-      background: var(--accent); color: #fff; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.55);
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-      z-index: 2;
-    }
-    .video-play-overlay-btn:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-      background: var(--accent-dark);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.65);
-    }
-    .video-play-overlay-btn svg { width: 32px; height: 32px; margin-left: 4px; }
-    /* Pulsing ring animation to draw attention */
-    .video-play-overlay-btn::before {
-      content: '';
-      position: absolute; inset: -8px;
-      border-radius: 50%;
-      border: 2px solid rgba(178, 34, 34, 0.45);
-      animation: pulse-ring 2s ease-out infinite;
-    }
-    @keyframes pulse-ring {
-      0%   { transform: scale(1);    opacity: 1; }
-      70%  { transform: scale(1.18); opacity: 0; }
-      100% { transform: scale(1.18); opacity: 0; }
-    }
-    .about-video.playing ~ .video-poster-overlay { display: none; }
-    .about-video.paused ~ .video-poster-overlay { display: flex; align-items: center; justify-content: center; }
+    .about-video { display: block; border-radius: var(--radius-xl); width: 100%; aspect-ratio: 1/1; box-shadow: 0 24px 70px rgba(0,0,0,0.4); background: #000; }
     .about-photo-caption {
       position: absolute; bottom: 0; left: 0; right: 0;
       /* Solid dark background (opaque, not translucent) so the white
@@ -1368,11 +1321,7 @@
       </div>
       <div class="about-image reveal">
         <figure class="about-graphic">
-          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls></video>
-          <div class="video-poster-overlay" aria-label="Play video">
-            <img src="assets/hero.jpg" alt="Yakesh Roofing professional workmanship" loading="lazy" />
-            <button class="video-play-overlay-btn" aria-label="Play commercial"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
-          </div>
+          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls poster="assets/hero.jpg"></video>
           <figcaption class="about-photo-caption">
             <span class="about-caption-name">Yakesh Roofing</span>
             <span class="about-caption-title">Eau Claire, WI</span>
@@ -1734,38 +1683,6 @@
     }, { threshold: 0.5 });
     statTexts.forEach(el => counterObserver.observe(el));
     const playBtn = null; // removed — native controls now used
-    const videoEl = document.querySelector('.about-video');
-    const posterOverlay = document.querySelector('.video-poster-overlay');
-    const overlayBtn = document.querySelector('.video-play-overlay-btn');
-
-    if (videoEl && posterOverlay) {
-      posterOverlay.addEventListener('click', () => {
-        videoEl.classList.remove('paused');
-        videoEl.classList.add('playing');
-        videoEl.play();
-      });
-      overlayBtn && overlayBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        videoEl.classList.remove('paused');
-        videoEl.classList.add('playing');
-        videoEl.play();
-      });
-      videoEl.addEventListener('click', () => {
-        if (videoEl.paused) {
-          videoEl.classList.remove('paused');
-          videoEl.classList.add('playing');
-        } else {
-          videoEl.classList.remove('playing');
-          videoEl.classList.add('paused');
-        }
-      });
-      videoEl.addEventListener('ended', () => {
-        videoEl.classList.remove('playing');
-        videoEl.classList.add('paused');
-      });
-      // Initial state: show overlay (paused class)
-      videoEl.classList.add('paused');
-    }
 
     /* === COUNTER SAFETY NET ===
        If IntersectionObserver never fires (headless screenshot, slow scroll,
