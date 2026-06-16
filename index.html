@@ -265,7 +265,7 @@
     .navbar.visible { transform: translateY(0); }
 
     .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; min-width: 0; }
-    .nav-logo img { height: 44px; width: auto; flex-shrink: 0; }
+    .nav-logo img { height: 44px; width: auto; flex-shrink: 0; border-radius: var(--radius-sm); }
     .nav-logo-text {
       font-family: var(--font-display); font-weight: 700;
       font-size: 1.05rem; letter-spacing: 0.04em;
@@ -397,7 +397,7 @@
 
     /* Logo */
     .hero-logo { margin-bottom: 24px; animation: logoIn 0.8s ease 0.2s both; }
-    .hero-logo img { max-width: 320px; width: 100%; height: auto; margin: 0 auto; display: block; }
+    .hero-logo img { max-width: 320px; width: 100%; height: auto; margin: 0 auto; display: block; border-radius: var(--radius-md); }
     @keyframes logoIn {
       from { opacity: 0; transform: translateY(-16px); }
       to { opacity: 1; transform: none; }
