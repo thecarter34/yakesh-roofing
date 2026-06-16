@@ -59,7 +59,7 @@
     "name": "Yakesh Roofing",
     "description": "Eau Claire's trusted roofing contractor. Certified Owens Corning installers of asphalt and fiberglass shingles with lifetime warranties available.",
     "url": "https://yakeshrfg.com",
-    "telephone": "+1-715-555-0172",
+    "telephone": "+1-715-933-0145",
     "email": "info@yakeshrfg.com",
     "address": {
       "@type": "PostalAddress",
@@ -226,6 +226,22 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* === NO-JS / SAFETY FALLBACK ===
+       Without this, headless screenshot tools, JS-disabled browsers, or any
+       environment where the IntersectionObserver doesn't fire will render
+       the page with all .reveal elements invisible (opacity: 0). That
+       looks like "empty sections" / "broken page" in QA screenshots and
+       in production for users on flaky connections. After 1.5s every
+       .reveal element MUST be visible regardless of observer state. */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { animation: reveal-safety 0.01s linear 1.5s forwards; }
+      .reveal.visible { animation: none; }
+    }
+    @keyframes reveal-safety {
+      to { opacity: 1; transform: none; }
+    }
+    .no-js .reveal { opacity: 1; transform: none; }
 
     /* Navbar scroll effect */
     .navbar.scrolled { background: rgba(var(--bg-rgb), 0.97); backdrop-filter: blur(20px); }
@@ -800,6 +816,34 @@
     /* ================================
        RESPONSIVE
        ================================ */
+    /* === STICKY MOBILE CALL BAR ===
+       Roofers convert on phone calls. Mobile users have to scroll back up
+       to find the number — they won't. A persistent bottom bar (visible
+       only on mobile) eliminates that friction. This is the single highest-
+       leverage mobile conversion element for any service business. */
+    .mobile-callbar {
+      display: none;
+      position: fixed; left: 0; right: 0; bottom: 0;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 20px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+      z-index: 998;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.25);
+      text-decoration: none;
+    }
+    .mobile-callbar svg { display: inline-block; vertical-align: -3px; margin-right: 8px; }
+    .mobile-callbar:hover { background: var(--accent-dark); }
+    @media (max-width: 768px) {
+      .mobile-callbar { display: flex; align-items: center; justify-content: center; }
+      /* Push page content up so the last section isn't hidden behind the bar */
+      body { padding-bottom: 70px; }
+    }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
@@ -818,6 +862,15 @@
       .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
       .nav-phone { display: none; }
       .nav-actions { gap: 12px; }
+      /* Trust bar: stack trust items vertically on mobile so they don't
+         cram into a single illegible row. */
+      .hero-trust {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .hero-trust .trust-sep { display: none; }
+      .hero-trust .trust-item { font-size: 0.9rem; }
     }
     @media (max-width: 480px) {
       .navbar { padding: 12px 16px; }
@@ -931,9 +984,9 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <a href="tel:+17155550172" class="nav-phone">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        (715) 555-0172
+      <a href="tel:+17159330145" class="nav-phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      (715) 933-0145
       </a>
       <a href="#contact" class="nav-cta">Get Free Estimate</a>
     </div>
@@ -949,7 +1002,7 @@
     <a href="#reviews">Reviews</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
-    <a href="tel:+17155550172" class="btn-primary" style="margin-top: 20px;">(715) 555-0172</a>
+    <a href="tel:+17159330145" class="btn-primary" style="margin-top: 20px;">(715) 933-0145</a>
   </div>
 
   <!-- HERO -->
@@ -978,9 +1031,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
           Get a Free Estimate
         </a>
-        <a href="tel:+17155550172" class="btn-outline">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          (715) 555-0172
+        <a href="tel:+17159330145" class="btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          (715) 933-0145
         </a>
       </div>
 
@@ -1371,7 +1424,7 @@
       <p>Get a free, no-obligation estimate today. Let's talk about your roofing needs and find the best solution for your home and budget.</p>
       <div class="cta-actions">
         <a href="#contact" class="btn-primary">Request Free Estimate</a>
-        <a href="tel:+17155550172" class="btn-outline">(715) 555-0172</a>
+        <a href="tel:+17159330145" class="btn-outline">(715) 933-0145</a>
       </div>
     </div>
   </section>
@@ -1385,7 +1438,7 @@
         <div class="contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           <div>
-            <a href="tel:+17155550172">(715) 555-0172</a>
+            <a href="tel:+17159330145">(715) 933-0145</a>
             <p class="contact-hours">Mon–Fri: 7:00 AM – 6:00 PM</p>
           </div>
         </div>
@@ -1409,7 +1462,7 @@
           </div>
           <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required placeholder="(715) 555-0000" />
+            <input type="tel" id="phone" name="phone" required placeholder="(715) 933-0145" />
           </div>
         </div>
         <div class="form-group">
@@ -1448,7 +1501,7 @@
       </div>
       <div class="footer-contact">
         <h4>Contact</h4>
-        <p><a href="tel:+17155550172">(715) 555-0172</a></p>
+        <p><a href="tel:+17159330145">(715) 933-0145</a></p>
         <p>info@yakeshrfg.com</p>
         <p>123 Main Street<br>Eau Claire, WI 54701</p>
       </div>
@@ -1463,6 +1516,12 @@
       <p>© 2025 Yakesh Roofing. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Sticky mobile call bar (visible only on screens <= 768px) -->
+  <a href="tel:+17159330145" class="mobile-callbar" aria-label="Call Yakesh Roofing at (715) 933-0145">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 010 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Call (715) 933-0145 — Free Estimates
+  </a>
 
   <!-- JAVASCRIPT -->
   <script>
@@ -1542,6 +1601,20 @@
       });
     }, { threshold: 0.5 });
     statTexts.forEach(el => counterObserver.observe(el));
+
+    /* === COUNTER SAFETY NET ===
+       If IntersectionObserver never fires (headless screenshot, slow scroll,
+       element never reaches 50% threshold), force the final value after 1.5s
+       so the page never shows literal "0" for company stats. */
+    setTimeout(() => {
+      statTexts.forEach(el => {
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        if (target && el.textContent === '0') {
+          el.textContent = target + suffix;
+        }
+      });
+    }, 1500);
   </script>
 </body>
 </html>
