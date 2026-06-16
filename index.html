@@ -921,25 +921,21 @@
        leverage mobile conversion element for any service business. */
     .mobile-callbar {
       display: none;
-      position: fixed; left: 0; right: 0; bottom: 0;
-      background: var(--accent);
-      color: #fff;
-      padding: 14px 20px;
-      text-align: center;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: 0.02em;
+      position: fixed; right: 20px; bottom: 24px;
+      background: var(--gold);
+      color: #ffffff;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      align-items: center; justify-content: center;
+      font-size: 1.4rem;
       z-index: 998;
-      box-shadow: 0 -6px 20px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       text-decoration: none;
     }
-    .mobile-callbar svg { display: inline-block; vertical-align: -3px; margin-right: 8px; }
-    .mobile-callbar:hover { background: var(--accent-dark); }
+    .mobile-callbar svg, .mobile-callbar i { display: block; }
+    .mobile-callbar:hover { background: var(--gold-dark); transform: scale(1.08); }
     @media (max-width: 768px) {
-      .mobile-callbar { display: flex; align-items: center; justify-content: center; }
-      /* Push page content up so the last section isn't hidden behind the bar */
-      body { padding-bottom: 70px; }
+      .mobile-callbar { display: flex; }
     }
 
     @media (max-width: 768px) {
@@ -1617,7 +1613,6 @@
   <!-- Sticky mobile call bar (visible only on screens <= 768px) -->
   <a href="tel:+17159330145" class="mobile-callbar" aria-label="Call Yakesh Roofing at (715) 933-0145">
     <i class="ph ph-phone"></i>
-    Call (715) 933-0145 — Free Estimates
   </a>
 
   <!-- JAVASCRIPT -->
