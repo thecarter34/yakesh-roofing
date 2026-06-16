@@ -687,19 +687,6 @@
     }
     .about-video { display: block; }
     .about-video:not([src]) { display: none; }
-    .video-play-btn {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 72px; height: 72px; border-radius: 50%;
-      background: var(--accent); color: #fff;
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-      transition: transform 0.2s, background 0.2s;
-      z-index: 2;
-    }
-    .video-play-btn svg { width: 28px; height: 28px; margin-left: 4px; }
-    .video-play-btn:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--accent-dark); }
-    .about-video.playing ~ .video-play-btn { display: none; }
     .about-photo-caption {
       position: absolute; bottom: 0; left: 0; right: 0;
       /* Solid dark background (opaque, not translucent) so the white
@@ -1331,8 +1318,7 @@
       </div>
       <div class="about-image reveal">
         <figure class="about-graphic">
-          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline width="450" height="450"></video>
-          <button class="video-play-btn" aria-label="Play commercial"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+          <video class="about-video" src="https://www.yakeshrfg.com/wp-content/uploads/2020/01/RFG-TV-13-commercial-1.mp4" playsinline controls width="450" height="450"></video>
           <figcaption class="about-photo-caption">
             <span class="about-caption-name">Yakesh Roofing</span>
             <span class="about-caption-title">Eau Claire, WI</span>
@@ -1693,28 +1679,8 @@
       });
     }, { threshold: 0.5 });
     statTexts.forEach(el => counterObserver.observe(el));
-
-    /* Video play button */
-    const playBtn = document.querySelector('.video-play-btn');
+    const playBtn = null; // removed — native controls now used
     const videoEl = document.querySelector('.about-video');
-    if (playBtn && videoEl) {
-      playBtn.addEventListener('click', () => {
-        videoEl.play();
-        videoEl.classList.add('playing');
-      });
-      videoEl.addEventListener('click', () => {
-        if (videoEl.paused) {
-          videoEl.play();
-          videoEl.classList.add('playing');
-        } else {
-          videoEl.pause();
-          videoEl.classList.remove('playing');
-        }
-      });
-      videoEl.addEventListener('ended', () => {
-        videoEl.classList.remove('playing');
-      });
-    }
 
     /* === COUNTER SAFETY NET ===
        If IntersectionObserver never fires (headless screenshot, slow scroll,
