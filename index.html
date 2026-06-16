@@ -9,7 +9,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow" />
   <link rel="canonical" href="https://yakeshrfg.com" />
-  <meta name="theme-color" content="#b91c1c" />
+  <meta name="theme-color" content="#B22222" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -142,41 +142,36 @@
   <style>
     /* ================================
        BRAND TOKENS — YAKESH ROOFING
-       Brand: crimson red + earthy brown
+       Brand: deep red (#B22222) + charcoal (#1C1C1C) from logo
        ================================ */
     :root {
-      /* Crimson red — primary accent */
-      --accent:         #b91c1c;
-      --accent-light:   #ef4444;
-      --accent-dark:    #991b1b;
-      --accent-glow:    rgba(185, 28, 28, 0.25);
+      /* Deep crimson red — primary brand accent */
+      --accent:         #B22222;
+      --accent-light:   #C83232;
+      --accent-dark:    #8B1A1A;
+      --accent-glow:    rgba(178, 34, 34, 0.25);
 
-      /* Earthy brown — secondary accent */
-      --accent-2:       #92400e;
-      --accent-2-light: #b45309;
-      --accent-2-dark:  #78350f;
-      --accent-2-glow:  rgba(146, 64, 14, 0.2);
+      /* Charcoal — brand background from logo */
+      --charcoal:       #1C1C1C;
+      --charcoal-light: #2A2A2A;
+      --charcoal-dark:  #141414;
 
-      /* Gold — brand accent from logo */
-      --gold:           #C9A228;
-      --gold-light:     #D4B234;
-      --gold-dark:      #A07D1C;
-      --gold-glow:      rgba(201, 162, 40, 0.25);
+      /* Light background */
+      --bg-primary:     #FAFAFA;
+      --bg-secondary:   #F2F2F2;
+      --bg-card:        #FFFFFF;
+      --bg-dark:        #1C1C1C;
+      --bg-rgb:         28, 28, 28;
 
-      /* Background — warm charcoal */
-      --bg-primary:     #FAF7F4;
-      --bg-secondary:   #F0EBE6;
-      --bg-card:         #FFFFFF;
-      --bg-dark:         #5C4A4A;
-      --bg-rgb:          250, 247, 244;
-
-      /* Text — warm off-white */
-      --text-primary:   #1A1817;
-      --text-secondary: #5C4A4A;
-      --text-muted:     #7A6E6A;
+      /* Text */
+      --text-primary:   #1A1A1A;
+      --text-secondary: #4A4A4A;
+      --text-muted:     #6E6E6E;
+      --text-on-dark:   #FFFFFF;
 
       /* Borders */
-      --border-color:   rgba(92, 74, 74, 0.15);
+      --border-color:   rgba(28, 28, 28, 0.1);
+      --border-on-dark: rgba(255, 255, 255, 0.08);
 
       /* Typography */
       --font-display:   'Playfair Display', serif;
@@ -256,7 +251,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       padding: 12px 24px;
       display: flex; align-items: center; justify-content: space-between;
-      background: #1A1817;
+      background: #1C1C1C;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -265,7 +260,7 @@
     }
     .navbar a { color: #ffffff; }
     .navbar.scrolled {
-      background: rgba(26, 24, 23, 0.93);
+      background: rgba(28, 28, 28, 0.93);
     }
     .navbar.visible { transform: translateY(0); }
 
@@ -295,7 +290,7 @@
       font-family: var(--font-body); font-weight: 600; font-size: 0.85rem;
       color: rgba(255,255,255,0.85); transition: color 0.2s;
     }
-    .nav-phone i { color: var(--gold); flex-shrink: 0; font-size: 1rem; }
+    .nav-phone i { color: var(--accent); flex-shrink: 0; font-size: 1rem; }
     .nav-phone:hover { color: #ffffff; }
 
     .nav-cta {
@@ -325,7 +320,7 @@
       display: none; flex-direction: column;
       align-items: center; justify-content: center; gap: 28px;
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: #1A1817; z-index: 999;
+      background: #1C1C1C; z-index: 999;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -335,7 +330,7 @@
       text-transform: uppercase; color: rgba(255,255,255,0.85);
       transition: color 0.2s;
     }
-    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu a:hover { color: var(--accent); }
 
     /* ================================
        HERO
@@ -425,33 +420,26 @@
       font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
       /* === HERO TEXT ON DARK BACKGROUND ===
-         .hero has background: var(--bg-dark) which is the warm dark brown
-         #5C4A4A. The body color scheme (--text-primary = #1A1817) is
-         near-black, which becomes unreadable on that dark brown. Hero
-         must override to white. Keep h1 span (the "Roofing" accent word)
-         in --accent for the red highlight. */
+         .hero has background: var(--bg-dark) which is #1C1C1C charcoal.
+         Keep h1 span (the "Roofing" accent word) in --accent for the red highlight. */
       color: #ffffff;
       line-height: 1;
       margin-bottom: 20px;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
     }
     .hero h1 span {
-      /* === ACCENT WORD ON DARK HERO BG ===
-         Was color: var(--accent) = #b91c1c (deep red). On the dark brown
-         hero background that's only 1.3:1 contrast — invisible.
-         Use a brighter red (#fca5a5) that gives ~4.4:1 contrast on the
-         dark brown — passes WCAG AA for large text — and still reads as
-         a warm red, not pink. Add a glow for extra emphasis. */
-      color: #fca5a5;
-      text-shadow: 0 0 24px rgba(252, 165, 165, 0.45),
+      /* === ACCENT WORD ON CHARCOAL HERO BG ===
+         Brand #B22222 on #1C1C1C = only 2.55:1 contrast (fails WCAG).
+         #DC2F3C (deep crimson) = 3.66:1 on charcoal — passes WCAG AA
+         for large/bold text. Cohesive with the brand, reads as rich red. */
+      color: #DC2F3C;
+      text-shadow: 0 0 28px rgba(220, 47, 60, 0.25),
                    0 2px 12px rgba(0, 0, 0, 0.5);
     }
 
     .hero-sub {
       font-size: clamp(1rem, 2vw, 1.2rem);
-      /* Was var(--text-secondary) which is #5C4A4A — SAME as the hero
-         background. The subtitle was literally invisible. Override to
-         a high-contrast cream/white. */
+      /* Hero subtitle on charcoal bg — force readable white */
       color: rgba(255, 255, 255, 0.88);
       max-width: 600px; margin: 0 auto 40px; line-height: 1.7;
       text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
@@ -561,17 +549,13 @@
     .trustbar-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(15,14,13,0.35); }
 
     /* ================================
-       REFERRAL BANNER — earthy brown
+       REFERRAL BANNER — charcoal brand bg
        ================================ */
     /* === REFERRAL BANNER === */
     .referral-banner {
-      /* Solid dark bg as a fallback BEFORE the gradient so the contrast
-         audit finds an opaque color to test against. Without this, the
-         audit walks up to body bg (warm off-white) and concludes the
-         white text is invisible — even though visually the gradient is
-         dark and the text reads fine. */
-      background-color: #78350f;
-      background-image: linear-gradient(135deg, #78350f 0%, #92400e 50%, #b45309 100%);
+      /* Solid dark bg as a fallback — charcoal matches brand */
+      background-color: #141414;
+      background-image: linear-gradient(135deg, #141414 0%, #1C1C1C 50%, #2A2A2A 100%);
       padding: 52px 24px;
       text-align: center;
       position: relative;
@@ -757,9 +741,8 @@
       text-shadow: 0 0 35px var(--accent-glow);
     }
     /* === STATS LABEL ON DARK BG ===
-       .stats-section uses background: var(--bg-dark) = #5C4A4A.
-       Was color: var(--text-muted) = #7A6E6A (muted brown on dark brown,
-       contrast ~1.4:1, fails WCAG). Override to off-white. */
+       .stats-section uses background: var(--bg-dark) = #1C1C1C charcoal.
+       Force legible off-white. */
     .stat-label { font-size: 0.88rem; color: rgba(255, 255, 255, 0.85); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 10px; }
 
     /* ================================
@@ -870,9 +853,7 @@
     .cta-box h2 { font-family: var(--font-display); font-size: clamp(2.1rem, 4vw, 3.1rem); font-weight: 800; text-transform: uppercase; margin-bottom: 18px; color: #ffffff; }
     /* === CTA PARAGRAPH ON DARK BG ===
        .cta-box sits inside .cta-section which has background: var(--bg-dark)
-       = #5C4A4A. Was color: var(--text-secondary) = #5C4A4A — LITERALLY
-       the same color as the section background, completely invisible.
-       Override to off-white. */
+       = #1C1C1C charcoal. Force legible off-white. */
     .cta-box p { font-size: 1.08rem; color: rgba(255, 255, 255, 0.88); margin-bottom: 36px; }
     .cta-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
@@ -909,10 +890,8 @@
       background: var(--bg-dark);
       padding: 64px 24px 26px;
       /* === FOOTER ON DARK BG ===
-         Footer uses background: var(--bg-dark) = #5C4A4A. The body
-         color tokens (--text-primary, --text-muted) are dark and become
-         unreadable on this dark background. Force all footer text to
-         light tones. */
+         Footer uses background: var(--bg-dark) = #1C1C1C charcoal.
+         Force all footer text to light tones. */
       color: rgba(255, 255, 255, 0.85);
     }
     .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; }
@@ -1086,7 +1065,7 @@
   <!-- NAVBAR -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <a href="#" class="nav-logo">
-      <img src="assets/logo.png" alt="Yakesh Roofing" />
+      <img src="assets/logo-new.png" alt="Yakesh Roofing" />
       <span class="nav-logo-text">Yakesh Roofing</span>
     </a>
     <ul class="nav-links">
@@ -1128,7 +1107,7 @@
 
     <div class="hero-content">
       <div class="hero-logo">
-        <img src="assets/logo.png" alt="Yakesh Roofing" loading="eager" />
+        <img src="assets/logo-new.png" alt="Yakesh Roofing" loading="eager" />
       </div>
 
       <div class="hero-badge">
@@ -1179,11 +1158,11 @@
       <div class="hero-social-proof">
         <span class="r-stars" aria-label="5 out of 5 stars">
           <svg width="88" height="16" viewBox="0 0 88 16" fill="none">
-            <path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z" fill="#f59e0b"/>
-            <path d="M26 1l1.9 5.8H34l-4.8 3.5 1.8 5.7L26 12.3l-5 3.7 1.8-5.7L18 6.8h6.1L26 1z" fill="#f59e0b"/>
-            <path d="M44 1l1.9 5.8H52l-4.8 3.5 1.8 5.7L44 12.3l-5 3.7 1.8-5.7L36 6.8h6.1L44 1z" fill="#f59e0b"/>
-            <path d="M62 1l1.9 5.8H70l-4.8 3.5 1.8 5.7L62 12.3l-5 3.7 1.8-5.7L54 6.8h6.1L62 1z" fill="#f59e0b"/>
-            <path d="M80 1l1.9 5.8H88l-4.8 3.5 1.8 5.7L80 12.3l-5 3.7 1.8-5.7L72 6.8h6.1L80 1z" fill="#f59e0b"/>
+            <path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z" fill="#B22222"/>
+            <path d="M26 1l1.9 5.8H34l-4.8 3.5 1.8 5.7L26 12.3l-5 3.7 1.8-5.7L18 6.8h6.1L26 1z" fill="#B22222"/>
+            <path d="M44 1l1.9 5.8H52l-4.8 3.5 1.8 5.7L44 12.3l-5 3.7 1.8-5.7L36 6.8h6.1L44 1z" fill="#B22222"/>
+            <path d="M62 1l1.9 5.8H70l-4.8 3.5 1.8 5.7L62 12.3l-5 3.7 1.8-5.7L54 6.8h6.1L62 1z" fill="#B22222"/>
+            <path d="M80 1l1.9 5.8H88l-4.8 3.5 1.8 5.7L80 12.3l-5 3.7 1.8-5.7L72 6.8h6.1L80 1z" fill="#B22222"/>
           </svg>
         </span>
         <p><strong>47+</strong> — 5-Star Rated on Google</p>
@@ -1402,11 +1381,11 @@
       <div class="r-google-rating-summary">
         <span class="r-google-rating-number">5.0</span>
         <div class="r-google-stars" aria-label="5 out of 5 stars">
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-          <svg width="24" height="24" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
         </div>
         <span class="r-google-review-count">47+ reviews</span>
       </div>
@@ -1417,11 +1396,11 @@
       <div class="r-google-review-card reveal">
         <div class="r-google-review-top">
           <div class="r-google-card-stars">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
           </div>
           <svg class="r-google-g-logo" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285f4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34a853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fbbc05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#ea4335"/></svg>
         </div>
@@ -1431,11 +1410,11 @@
       <div class="r-google-review-card reveal reveal-delay-1">
         <div class="r-google-review-top">
           <div class="r-google-card-stars">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
           </div>
           <svg class="r-google-g-logo" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285f4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34a853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fbbc05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#ea4335"/></svg>
         </div>
@@ -1445,11 +1424,11 @@
       <div class="r-google-review-card reveal reveal-delay-2">
         <div class="r-google-review-top">
           <div class="r-google-card-stars">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="#f59e0b"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="#B22222"><path d="M8 1l1.9 5.8H16l-4.8 3.5 1.8 5.7L8 12.3l-5 3.7 1.8-5.7L0 6.8h6.1L8 1z"/></svg>
           </div>
           <svg class="r-google-g-logo" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285f4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34a853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fbbc05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#ea4335"/></svg>
         </div>
@@ -1595,7 +1574,7 @@
   <footer class="site-footer" role="contentinfo">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo.png" alt="Yakesh Roofing" />
+        <img src="assets/logo-new.png" alt="Yakesh Roofing" />
         <p>Eau Claire's trusted roofing contractor. Certified Owens Corning installers serving residential and commercial properties across the Chippewa Valley.</p>
       </div>
       <div class="footer-links">
