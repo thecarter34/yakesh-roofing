@@ -282,7 +282,7 @@
 
     .nav-cta {
       background: var(--accent);
-      color: var(--text-primary);
+      color: #ffffff;
       padding: 10px 22px;
       border-radius: var(--radius-sm);
       font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
@@ -395,7 +395,17 @@
       margin-bottom: 20px;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
     }
-    .hero h1 span { color: var(--accent); }
+    .hero h1 span {
+      /* === ACCENT WORD ON DARK HERO BG ===
+         Was color: var(--accent) = #b91c1c (deep red). On the dark brown
+         hero background that's only 1.3:1 contrast — invisible.
+         Use a brighter red (#fca5a5) that gives ~4.4:1 contrast on the
+         dark brown — passes WCAG AA for large text — and still reads as
+         a warm red, not pink. Add a glow for extra emphasis. */
+      color: #fca5a5;
+      text-shadow: 0 0 24px rgba(252, 165, 165, 0.45),
+                   0 2px 12px rgba(0, 0, 0, 0.5);
+    }
 
     .hero-sub {
       font-size: clamp(1rem, 2vw, 1.2rem);
@@ -412,7 +422,7 @@
 
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--accent); color: var(--text-primary);
+      background: var(--accent); color: #ffffff;
       padding: 16px 32px; border-radius: var(--radius-md);
       font-size: 1rem; font-weight: 700;
       transition: all 0.2s;
@@ -429,6 +439,20 @@
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent-light); transform: translateY(-2px); }
     .btn-outline svg { width: 18px; height: 18px; }
+    /* === OUTLINE BUTTON ON DARK BG ===
+       .btn-outline has no opaque background — its text reads on whatever
+       section it's in. On light sections (--text-primary = #1A1817 near-
+       black) it's fine. On dark sections (.hero, .cta-section,
+       .stats-section, .site-footer) the body color becomes unreadable.
+       Force white inside those sections. */
+    .hero .btn-outline,
+    .cta-section .btn-outline,
+    .stats-section .btn-outline,
+    .site-footer .btn-outline { color: #ffffff; border-color: rgba(255, 255, 255, 0.4); }
+    .hero .btn-outline:hover,
+    .cta-section .btn-outline:hover,
+    .stats-section .btn-outline:hover,
+    .site-footer .btn-outline:hover { border-color: #ffffff; color: #ffffff; }
 
     /* Trust row */
     .hero-trust {
@@ -594,7 +618,7 @@
     .svc-card p { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.7; }
     .svc-card a {
       font-family: var(--font-display); font-weight: 700; font-size: 0.82rem;
-      letter-spacing: 0.05em; color: var(--accent-light);
+      letter-spacing: 0.05em; color: var(--accent);
       display: flex; align-items: center; gap: 6px; margin-top: auto;
       transition: gap 0.2s;
     }
@@ -632,12 +656,17 @@
     }
     .about-photo-caption {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(8,7,6,0.88));
+      /* Solid dark background (opaque, not translucent) so the white
+         caption text is reliably readable AND the contrast audit can
+         find an opaque bg to test against. The gradient layer on top
+         adds visual depth. */
+      background-color: #08070a;
+      background-image: linear-gradient(transparent, rgba(8, 7, 6, 0.96));
       padding: 44px 26px 22px;
       border-radius: 0 0 var(--radius-xl) var(--radius-xl);
     }
-    .about-caption-name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: #fff; }
-    .about-caption-title { font-size: 0.88rem; color: rgba(255,255,255,0.65); }
+    .about-caption-name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: #ffffff; }
+    .about-caption-title { font-size: 0.88rem; color: rgba(255, 255, 255, 0.85); }
 
     /* ================================
        STATS
@@ -665,7 +694,11 @@
       font-weight: 800; color: var(--accent-light); line-height: 1;
       text-shadow: 0 0 35px var(--accent-glow);
     }
-    .stat-label { font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 10px; }
+    /* === STATS LABEL ON DARK BG ===
+       .stats-section uses background: var(--bg-dark) = #5C4A4A.
+       Was color: var(--text-muted) = #7A6E6A (muted brown on dark brown,
+       contrast ~1.4:1, fails WCAG). Override to off-white. */
+    .stat-label { font-size: 0.88rem; color: rgba(255, 255, 255, 0.85); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 10px; }
 
     /* ================================
        REVIEWS
@@ -684,7 +717,7 @@
     .r-google-rating-number { font-family: var(--font-display); font-weight: 700; font-size: 1.55rem; }
     .r-google-stars { display: flex; gap: 4px; }
     .r-google-stars svg { width: 24px; height: 24px; }
-    .r-google-review-count { font-size: 0.92rem; color: var(--text-muted); }
+    .r-google-review-count { font-size: 0.92rem; color: var(--text-secondary); }
     .r-google-reviews-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -715,7 +748,7 @@
     .r-google-cta { display: flex; justify-content: center; gap: 16px; margin-top: 44px; flex-wrap: wrap; }
     .r-google-cta-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--accent); color: var(--text-primary);
+      background: var(--accent); color: #ffffff;
       padding: 14px 26px; border-radius: var(--radius-md);
       font-size: 0.9rem; font-weight: 700;
       transition: all 0.2s;
@@ -772,8 +805,13 @@
       backdrop-filter: blur(12px);
       position: relative;
     }
-    .cta-box h2 { font-family: var(--font-display); font-size: clamp(2.1rem, 4vw, 3.1rem); font-weight: 800; text-transform: uppercase; margin-bottom: 18px; }
-    .cta-box p { font-size: 1.08rem; color: var(--text-secondary); margin-bottom: 36px; }
+    .cta-box h2 { font-family: var(--font-display); font-size: clamp(2.1rem, 4vw, 3.1rem); font-weight: 800; text-transform: uppercase; margin-bottom: 18px; color: #ffffff; }
+    /* === CTA PARAGRAPH ON DARK BG ===
+       .cta-box sits inside .cta-section which has background: var(--bg-dark)
+       = #5C4A4A. Was color: var(--text-secondary) = #5C4A4A — LITERALLY
+       the same color as the section background, completely invisible.
+       Override to off-white. */
+    .cta-box p { font-size: 1.08rem; color: rgba(255, 255, 255, 0.88); margin-bottom: 36px; }
     .cta-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
     /* ================================
@@ -808,22 +846,29 @@
     .site-footer {
       background: var(--bg-dark);
       padding: 64px 24px 26px;
+      /* === FOOTER ON DARK BG ===
+         Footer uses background: var(--bg-dark) = #5C4A4A. The body
+         color tokens (--text-primary, --text-muted) are dark and become
+         unreadable on this dark background. Force all footer text to
+         light tones. */
+      color: rgba(255, 255, 255, 0.85);
     }
     .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; }
-    .footer-brand p { font-size: 0.92rem; color: var(--text-muted); margin-top: 14px; line-height: 1.7; }
+    .footer-brand p { font-size: 0.92rem; color: rgba(255, 255, 255, 0.7); margin-top: 14px; line-height: 1.7; }
     .footer-brand img { height: 42px; }
     .footer-links h4, .footer-contact h4, .footer-credentials h4 {
       font-family: var(--font-display); font-size: 0.92rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px;
-      color: var(--text-primary);
+      color: #ffffff;
     }
     .footer-links ul { display: flex; flex-direction: column; gap: 12px; }
-    .footer-links a { font-size: 0.92rem; color: var(--text-muted); transition: color 0.2s; }
+    .footer-links a { font-size: 0.92rem; color: rgba(255, 255, 255, 0.75); transition: color 0.2s; }
     .footer-links a:hover { color: var(--accent-light); }
-    .footer-contact p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 10px; }
-    .footer-contact a { color: var(--text-secondary); }
-    .footer-bottom { max-width: 1120px; margin: 46px auto 0; padding-top: 26px; border-top: 1px solid var(--border-color); text-align: center; }
-    .footer-bottom p { font-size: 0.88rem; color: var(--text-muted); }
+    .footer-contact p { font-size: 0.92rem; color: rgba(255, 255, 255, 0.75); margin-bottom: 10px; }
+    .footer-contact a { color: rgba(255, 255, 255, 0.85); }
+    .footer-credentials p { font-size: 0.92rem; color: rgba(255, 255, 255, 0.75); margin-bottom: 10px; }
+    .footer-bottom { max-width: 1120px; margin: 46px auto 0; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, 0.12); text-align: center; }
+    .footer-bottom p { font-size: 0.88rem; color: rgba(255, 255, 255, 0.7); }
 
     /* ================================
        RESPONSIVE
@@ -1519,9 +1564,9 @@
       </div>
       <div class="footer-credentials">
         <h4>Credentials</h4>
-        <p style="font-size: 0.92rem; color: var(--text-muted);">Certified Owens Corning Installer</p>
-        <p style="font-size: 0.92rem; color: var(--text-muted);">A+ BBB Rating</p>
-        <p style="font-size: 0.92rem; color: var(--text-muted);">50-Year Warranty Available</p>
+        <p>Certified Owens Corning Installer</p>
+        <p>A+ BBB Rating</p>
+        <p>50-Year Warranty Available</p>
       </div>
     </div>
     <div class="footer-bottom">
