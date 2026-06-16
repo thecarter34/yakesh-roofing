@@ -696,20 +696,43 @@
       border-radius: var(--radius-xl);
       overflow: hidden;
       cursor: pointer;
+      /* Dark scrim so the play button always pops against any poster image */
+      background: rgba(0, 0, 0, 0.35);
     }
     .video-poster-overlay img {
+      position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover;
+      /* Slight dim so button is always the focal point */
+      filter: brightness(0.75);
     }
     .video-play-overlay-btn {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 72px; height: 72px; border-radius: 50%;
+      width: 80px; height: 80px; border-radius: 50%;
       background: var(--accent); color: #fff; border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.55);
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+      z-index: 2;
     }
-    .video-play-overlay-btn:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--accent-dark); }
-    .video-play-overlay-btn svg { width: 28px; height: 28px; margin-left: 4px; }
+    .video-play-overlay-btn:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: var(--accent-dark);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.65);
+    }
+    .video-play-overlay-btn svg { width: 32px; height: 32px; margin-left: 4px; }
+    /* Pulsing ring animation to draw attention */
+    .video-play-overlay-btn::before {
+      content: '';
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(178, 34, 34, 0.45);
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%   { transform: scale(1);    opacity: 1; }
+      70%  { transform: scale(1.18); opacity: 0; }
+      100% { transform: scale(1.18); opacity: 0; }
+    }
     .about-video.playing ~ .video-poster-overlay { display: none; }
     .about-video.paused ~ .video-poster-overlay { display: flex; align-items: center; justify-content: center; }
     .about-photo-caption {
